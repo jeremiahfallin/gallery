@@ -34,7 +34,6 @@ const Gallery = () => {
             frontmatter {
               date(formatString: "MMMM DD, YYYY")
               title
-              description
             }
           }
         }
