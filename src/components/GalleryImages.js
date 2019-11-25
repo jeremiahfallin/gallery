@@ -27,15 +27,14 @@ const GalleryImages = ({ gallery }) => {
       }
     }
   `);
-  console.log(edges);
   const data = edges;
 
   return (
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, 200px)",
-        gridTemplateRows: "repeat(auto-fill, 200px)",
+        gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
+        gridTemplateRows: "repeat(auto-fill, minmax(100px, 1fr))",
         gridGap: "20px",
         width: "100%",
         height: "100%",
@@ -43,8 +42,9 @@ const GalleryImages = ({ gallery }) => {
     >
       {data.map(
         image =>
-          image.node.relativePath === `${gallery}/${image.node.name}.png` && (
+          image.node.relativePath.includes(gallery) && (
             <>
+              {console.log(typeof image.node.relativePath)}
               <Img
                 key={image.node.childImageSharp.fluid.src}
                 fluid={image.node.childImageSharp.fluid}
