@@ -9,7 +9,6 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
     const siteTitle = this.props.data.site.siteMetadata.title;
-    console.log(this.props.data);
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -40,7 +39,9 @@ class BlogPostTemplate extends React.Component {
               {post.frontmatter.date}
             </p>
           </header>
-          <GalleryImages gallery={"Champion Images"} />
+          <GalleryImages
+            gallery={this.props.data.markdownRemark.frontmatter.title}
+          />
         </div>
       </Layout>
     );

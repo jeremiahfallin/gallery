@@ -2,23 +2,23 @@ import React from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 
-const GalleryImages = () => {
+function renderImage(file) {
+  return <Img fluid={file.node.childImageSharp.fluid} />;
+}
+
+const GalleryImages = ({ gallery }) => {
   const {
     allFile: { edges },
   } = useStaticQuery(graphql`
     query {
-      allFile(
-        filter: {
-          relativeDirectory: { eq: "Champion Images" }
-          extension: { regex: "/jpeg|jpg|png|gif/" }
-        }
-      ) {
+      allFile(filter: { extension: { regex: "/jpeg|jpg|png|gif/" } }) {
         edges {
           node {
             name
+            relativePath
             childImageSharp {
               id
-              fluid {
+              fluid(maxWidth: 500) {
                 src
               }
             }
@@ -27,6 +27,7 @@ const GalleryImages = () => {
       }
     }
   `);
+  console.log(edges);
   const data = edges;
 
   return (
@@ -40,13 +41,18 @@ const GalleryImages = () => {
         height: "100%",
       }}
     >
-      {data.map(image => (
-        <Img
-          key={image.node.childImageSharp.fluid.src}
-          fluid={image.node.childImageSharp.fluid}
-          style={{ height: "100%", width: "100%" }}
-        />
-      ))}
+      {data.map(
+        image =>
+          image.node.relativePath === `${gallery}/${image.node.name}.png` && (
+            <>
+              <Img
+                key={image.node.childImageSharp.fluid.src}
+                fluid={image.node.childImageSharp.fluid}
+                style={{ height: "100%", width: "100%" }}
+              />
+            </>
+          )
+      )}
     </div>
   );
 };
