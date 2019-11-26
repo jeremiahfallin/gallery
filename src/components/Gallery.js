@@ -1,18 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 
-import Images from "./Images";
-
-// {images.map(image => (
-//     <Img
-//       key={image.node.childImageSharp.fluid.src}
-//       fluid={image.node.childImageSharp.fluid}
-//       style={{ margin: '3rem 0' }}
-//     />
-//   ))}
+import "./Gallery.css";
 
 const Gallery = () => {
+  const [overlay, setOverlay] = useState(false);
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -88,10 +81,21 @@ const Gallery = () => {
                   to={`/${image.node.relativeDirectory}/`}
                   style={{ boxShadow: `none` }}
                 >
-                  <Img
-                    fluid={image.node.childImageSharp.fluid}
-                    style={{ height: "100%", width: "100%" }}
-                  />
+                  <div className="item">
+                    <Img
+                      fluid={image.node.childImageSharp.fluid}
+                      style={{ height: "100%", width: "100%" }}
+                    />
+                    <div className="item__overlay">
+                      <button
+                        onClick={e => {
+                          setOverlay(true);
+                        }}
+                      >
+                        {image.node.relativeDirectory}
+                      </button>
+                    </div>
+                  </div>
                 </Link>
               </React.Fragment>
             );
