@@ -84,7 +84,6 @@ const Gallery = () => {
           {data.allFile.edges.map(image => {
             return (
               <React.Fragment key={image.node.relativeDirectory}>
-                {console.log(image.node.childImageSharp.fluid)}
                 <Link
                   to={`/${image.node.relativeDirectory}/`}
                   style={{ boxShadow: `none` }}
