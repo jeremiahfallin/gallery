@@ -15,7 +15,7 @@ const GalleryImages = ({ gallery }) => {
             childImageSharp {
               id
               fluid(maxWidth: 500) {
-                src
+                ...GatsbyImageSharpFluid
               }
             }
           }

@@ -42,7 +42,7 @@ const Gallery = () => {
             childImageSharp {
               id
               fluid(maxWidth: 500) {
-                src
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -75,13 +75,16 @@ const Gallery = () => {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(200px, 2fr))",
-            gridAutoRows: "minmax(100px, 1fr)",
+            gridAutoRows: "minmax(100px, 200px)",
+            gridGap: "20px",
+            width: "100%",
+            height: "100%",
           }}
         >
           {data.allFile.edges.map(image => {
             return (
               <React.Fragment key={image.node.relativeDirectory}>
-                {console.log(image.node)}
+                {console.log(image.node.childImageSharp.fluid)}
                 <Link
                   to={`/${image.node.relativeDirectory}/`}
                   style={{ boxShadow: `none` }}
