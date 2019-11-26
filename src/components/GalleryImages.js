@@ -39,13 +39,12 @@ const GalleryImages = ({ gallery }) => {
       {data.map(
         image =>
           image.node.relativePath.includes(gallery) && (
-            <>
+            <React.Fragment key={image.node.childImageSharp.fluid.src}>
               <Img
-                key={image.node.childImageSharp.fluid.src}
                 fluid={image.node.childImageSharp.fluid}
                 style={{ height: "100%", width: "100%" }}
               />
-            </>
+            </React.Fragment>
           )
       )}
     </div>

@@ -1,12 +1,8 @@
 import React from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
+import Img from "gatsby-image";
 
-import Layout from "../components/layout";
-import SEO from "../components/seo";
 import Images from "./Images";
-import ImageSupplier from "./ImageSupplier";
-
-// <Images src={`images/${key}.png`} key={"Image" + String(key)} />
 
 // {images.map(image => (
 //     <Img
@@ -27,13 +23,27 @@ const Gallery = () => {
       allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
         edges {
           node {
-            excerpt
             fields {
               slug
             }
             frontmatter {
               date(formatString: "MMMM DD, YYYY")
               title
+            }
+          }
+        }
+      }
+      allFile(filter: { name: { eq: "cover" } }) {
+        edges {
+          node {
+            name
+            relativePath
+            relativeDirectory
+            childImageSharp {
+              id
+              fluid(maxWidth: 500) {
+                src
+              }
             }
           }
         }
@@ -61,28 +71,30 @@ const Gallery = () => {
         <strong>Gallery</strong>
       </div>
       <div style={{ gridTemplateRows: "span 2" }}>
-        {data.allMarkdownRemark.edges.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug;
-          return (
-            <article key={node.fields.slug}>
-              <header>
-                <h3 style={{}}>
-                  <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                    {title}
-                  </Link>
-                </h3>
-                <small>{node.frontmatter.date}</small>
-              </header>
-              <section>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: node.frontmatter.description || node.excerpt,
-                  }}
-                />
-              </section>
-            </article>
-          );
-        })}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 2fr))",
+            gridAutoRows: "minmax(100px, 1fr)",
+          }}
+        >
+          {data.allFile.edges.map(image => {
+            return (
+              <React.Fragment key={image.node.relativeDirectory}>
+                {console.log(image.node)}
+                <Link
+                  to={`/${image.node.relativeDirectory}/`}
+                  style={{ boxShadow: `none` }}
+                >
+                  <Img
+                    fluid={image.node.childImageSharp.fluid}
+                    style={{ height: "100%", width: "100%" }}
+                  />
+                </Link>
+              </React.Fragment>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
