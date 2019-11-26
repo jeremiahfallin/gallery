@@ -1,7 +1,7 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from "react";
+import { Link } from "gatsby";
 
-import Socials from "./Socials"
+import Socials from "./Socials";
 
 const Sidebar = () => {
   return (
@@ -56,7 +56,7 @@ const Sidebar = () => {
         <Socials />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

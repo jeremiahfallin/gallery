@@ -2,10 +2,6 @@ import React from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 
-function renderImage(file) {
-  return <Img fluid={file.node.childImageSharp.fluid} />;
-}
-
 const GalleryImages = ({ gallery }) => {
   const {
     allFile: { edges },
@@ -33,8 +29,8 @@ const GalleryImages = ({ gallery }) => {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
-        gridTemplateRows: "repeat(auto-fill, minmax(100px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fill, minmax(200px, 2fr))",
+        gridAutoRows: "minmax(100px, 1fr)",
         gridGap: "20px",
         width: "100%",
         height: "100%",
@@ -44,7 +40,6 @@ const GalleryImages = ({ gallery }) => {
         image =>
           image.node.relativePath.includes(gallery) && (
             <>
-              {console.log(typeof image.node.relativePath)}
               <Img
                 key={image.node.childImageSharp.fluid.src}
                 fluid={image.node.childImageSharp.fluid}

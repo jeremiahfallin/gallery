@@ -22,7 +22,12 @@ class BlogPostTemplate extends React.Component {
             height: "100vh",
           }}
         >
-          <header style={{ alignSelf: "end", justifySelf: "center" }}>
+          <header
+            style={{
+              alignSelf: "end",
+              justifySelf: "center",
+            }}
+          >
             <h1
               style={{
                 marginBottom: 0,
@@ -39,9 +44,11 @@ class BlogPostTemplate extends React.Component {
               {post.frontmatter.date}
             </p>
           </header>
-          <GalleryImages
-            gallery={this.props.data.markdownRemark.frontmatter.title}
-          />
+          <div style={{ gridRow: "span 2" }}>
+            <GalleryImages
+              gallery={this.props.data.markdownRemark.frontmatter.title}
+            />
+          </div>
         </div>
       </Layout>
     );

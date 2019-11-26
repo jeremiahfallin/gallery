@@ -60,7 +60,7 @@ const Gallery = () => {
       >
         <strong>Gallery</strong>
       </div>
-      <div>
+      <div style={{ gridTemplateRows: "span 2" }}>
         {data.allMarkdownRemark.edges.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug;
           return (
