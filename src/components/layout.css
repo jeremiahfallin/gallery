@@ -150,6 +150,9 @@ fieldset {
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em;
 }
+button {
+  cursor: pointer;
+}
 legend {
   box-sizing: border-box;
   color: inherit;

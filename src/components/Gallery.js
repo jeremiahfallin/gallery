@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 
 import "./Gallery.css";
 
 const Gallery = () => {
-  const [overlay, setOverlay] = useState(false);
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -87,13 +86,7 @@ const Gallery = () => {
                       style={{ height: "100%", width: "100%" }}
                     />
                     <div className="item__overlay">
-                      <button
-                        onClick={e => {
-                          setOverlay(true);
-                        }}
-                      >
-                        {image.node.relativeDirectory}
-                      </button>
+                      <button>{image.node.relativeDirectory}</button>
                     </div>
                   </div>
                 </Link>
