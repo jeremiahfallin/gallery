@@ -24,6 +24,8 @@ const IndexPage = ({ data }) => {
         <header
           style={{
             display: "grid",
+            height: "100%",
+            width: "100%",
             gridTemplateColumns: "1fr 1fr 1fr",
           }}
         >
@@ -65,38 +67,39 @@ const IndexPage = ({ data }) => {
             Next →
           </h1>
         </header>
-        <div>
-          <div style={{ gridRow: "span 2" }}>
-            <div
-              style={{
-                display: "grid",
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <React.Fragment key={imageIndex}>
-                {imageArray[imageIndex].node.relativeDirectory && (
-                  <Link
-                    to={`/${imageArray[imageIndex].node.relativeDirectory}/`}
-                    style={{ boxShadow: `none` }}
-                  >
-                    <div className="item">
-                      <Img
-                        fluid={
-                          imageArray[imageIndex].node.childImageSharp.fluid
-                        }
-                        style={{ height: "100%", width: "100%" }}
-                      />
-                      <div className="item__overlay">
-                        <button>
-                          {imageArray[imageIndex].node.relativeDirectory}
-                        </button>
-                      </div>
+        <div style={{ gridRow: "span 2" }}>
+          <div
+            style={{
+              display: "grid",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <React.Fragment key={imageIndex}>
+              {imageArray[imageIndex].node.relativeDirectory && (
+                <Link
+                  to={`/${imageArray[imageIndex].node.relativeDirectory}/`}
+                  style={{ boxShadow: `none` }}
+                >
+                  <div className="item">
+                    <Img
+                      fluid={imageArray[imageIndex].node.childImageSharp.fluid}
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "cover",
+                        justifySelf: "center",
+                      }}
+                    />
+                    <div className="item__overlay">
+                      <button>
+                        {imageArray[imageIndex].node.relativeDirectory}
+                      </button>
                     </div>
-                  </Link>
-                )}
-              </React.Fragment>
-            </div>
+                  </div>
+                </Link>
+              )}
+            </React.Fragment>
           </div>
         </div>
       </div>
