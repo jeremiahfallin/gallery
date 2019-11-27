@@ -39,6 +39,7 @@ const IndexPage = ({ data }) => {
             }}
             style={{
               marginBottom: 0,
+              fontSize: "20px",
               alignSelf: "end",
               justifySelf: "left",
               color: "#6699ff",
@@ -62,6 +63,7 @@ const IndexPage = ({ data }) => {
             }
             style={{
               marginBottom: 0,
+              fontSize: "20px",
               alignSelf: "end",
               justifySelf: "right",
               color: "#6699ff",
