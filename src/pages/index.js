@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, graphql } from "gatsby";
 import Img from "gatsby-image";
 
@@ -7,11 +7,7 @@ import SEO from "../components/seo";
 
 const IndexPage = ({ data }) => {
   const [imageIndex, setImageIndex] = useState(5);
-
-  useEffect(() => {
-    data.allFile.edges.shift();
-    setImageIndex(i => i - 1);
-  }, []);
+  const [imageArray] = useState(data.allFile.edges.slice(1));
 
   return (
     <Layout>
@@ -33,9 +29,7 @@ const IndexPage = ({ data }) => {
         >
           <h1
             onClick={e => {
-              setImageIndex(i =>
-                i - 1 >= 0 ? i - 1 : data.allFile.edges.length - 1
-              );
+              setImageIndex(i => (i - 1 >= 0 ? i - 1 : imageArray.length - 1));
             }}
             style={{
               marginBottom: 0,
@@ -58,9 +52,7 @@ const IndexPage = ({ data }) => {
             Home
           </h1>
           <h1
-            onClick={e =>
-              setImageIndex(i => (i + 1) % data.allFile.edges.length)
-            }
+            onClick={e => setImageIndex(i => (i + 1) % imageArray.length)}
             style={{
               marginBottom: 0,
               fontSize: "20px",
@@ -83,25 +75,21 @@ const IndexPage = ({ data }) => {
               }}
             >
               <React.Fragment key={imageIndex}>
-                {data.allFile.edges[imageIndex].node.relativeDirectory && (
+                {imageArray[imageIndex].node.relativeDirectory && (
                   <Link
-                    to={`/${data.allFile.edges[imageIndex].node.relativeDirectory}/`}
+                    to={`/${imageArray[imageIndex].node.relativeDirectory}/`}
                     style={{ boxShadow: `none` }}
                   >
                     <div className="item">
                       <Img
                         fluid={
-                          data.allFile.edges[imageIndex].node.childImageSharp
-                            .fluid
+                          imageArray[imageIndex].node.childImageSharp.fluid
                         }
                         style={{ height: "100%", width: "100%" }}
                       />
                       <div className="item__overlay">
                         <button>
-                          {
-                            data.allFile.edges[imageIndex].node
-                              .relativeDirectory
-                          }
+                          {imageArray[imageIndex].node.relativeDirectory}
                         </button>
                       </div>
                     </div>
