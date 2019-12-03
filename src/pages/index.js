@@ -7,7 +7,9 @@ import SEO from "../components/seo";
 
 const IndexPage = ({ data }) => {
   const [imageIndex, setImageIndex] = useState(5);
-  const [imageArray] = useState(data.allFile.edges.slice(1));
+  const [imageArray] = useState(
+    data.allFile.edges.filter(image => image.node.name !== "icon")
+  );
 
   return (
     <Layout>
@@ -31,7 +33,7 @@ const IndexPage = ({ data }) => {
         >
           <h1
             onClick={e => {
-              setImageIndex(i => (i - 1 >= 0 ? i - 1 : imageArray.length - 1));
+              setImageIndex(i => (i - 1 >= 0 ? i - 1 : imageArray.length - 2));
             }}
             style={{
               marginBottom: 0,
@@ -54,7 +56,7 @@ const IndexPage = ({ data }) => {
             Home
           </h1>
           <h1
-            onClick={e => setImageIndex(i => (i + 1) % imageArray.length)}
+            onClick={e => setImageIndex(i => (i + 1) % (imageArray.length - 1))}
             style={{
               marginBottom: 0,
               fontSize: "20px",
