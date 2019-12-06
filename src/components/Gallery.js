@@ -47,21 +47,21 @@ const Gallery = () => {
     <div
       style={{
         display: "grid",
-        gridTemplateRows: "1fr 4fr 0fr",
+        gridTemplateRows: "1fr 8fr 0fr",
         gridRowGap: "30px",
         width: "100%",
         height: "100vh",
       }}
     >
-      <div
+      <h1
         style={{
-          fontSize: "24px",
           alignSelf: "end",
           justifySelf: "center",
+          marginBottom: 0,
         }}
       >
-        <strong>Gallery</strong>
-      </div>
+        Gallery
+      </h1>
       <div style={{ gridTemplateRows: "span 2" }}>
         <div
           style={{

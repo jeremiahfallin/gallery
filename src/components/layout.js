@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 2fr 1fr",
+          gridTemplateColumns: "1fr 3fr 1fr",
           gridColumnGap: "50px",
           fontFamily: "Montserrat, sans-serif",
         }}

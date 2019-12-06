@@ -5,11 +5,17 @@ import Img from "gatsby-image";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
+import useInterval from "../components/hooks/useInterval";
+
 const IndexPage = ({ data }) => {
   const [imageIndex, setImageIndex] = useState(5);
   const [imageArray] = useState(
     data.allFile.edges.filter(image => image.node.name !== "icon")
   );
+
+  useInterval(() => {
+    setImageIndex(i => (i + 1) % (imageArray.length - 1));
+  }, 5000);
 
   return (
     <Layout>
@@ -17,7 +23,7 @@ const IndexPage = ({ data }) => {
       <div
         style={{
           display: "grid",
-          gridTemplateRows: "1fr 4fr 0fr",
+          gridTemplateRows: "1fr 8fr 0fr",
           gridRowGap: "30px",
           width: "100%",
           height: "100vh",
@@ -33,7 +39,7 @@ const IndexPage = ({ data }) => {
         >
           <h1
             onClick={e => {
-              setImageIndex(i => (i - 1 >= 0 ? i - 1 : imageArray.length - 2));
+              setImageIndex(i => (i - 1 >= 0 ? i - 1 : imageArray.length - 1));
             }}
             style={{
               marginBottom: 0,
@@ -56,7 +62,7 @@ const IndexPage = ({ data }) => {
             Home
           </h1>
           <h1
-            onClick={e => setImageIndex(i => (i + 1) % (imageArray.length - 1))}
+            onClick={e => setImageIndex(i => (i + 1) % imageArray.length)}
             style={{
               marginBottom: 0,
               fontSize: "20px",

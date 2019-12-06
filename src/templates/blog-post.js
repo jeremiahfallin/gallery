@@ -16,7 +16,7 @@ class BlogPostTemplate extends React.Component {
         <div
           style={{
             display: "grid",
-            gridTemplateRows: "1fr 4fr 0fr",
+            gridTemplateRows: "1fr 8fr 0fr",
             gridRowGap: "30px",
             width: "100%",
             height: "100vh",
@@ -37,7 +37,6 @@ class BlogPostTemplate extends React.Component {
             </h1>
             <p
               style={{
-                display: `block`,
                 marginBottom: 0,
               }}
             >

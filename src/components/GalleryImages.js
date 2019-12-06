@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
+import Gallery from "react-photo-gallery";
+import Carousel, { Modal, ModalGateway } from "react-images";
 
 import "./GalleryImages.css";
 
 const GalleryImages = ({ gallery }) => {
-  const [overlayImagePath, setOverlayImagePath] = useState("");
-  const [overlay, setOverlay] = useState(false);
   const {
     allFile: { edges },
   } = useStaticQuery(graphql`
@@ -20,6 +20,8 @@ const GalleryImages = ({ gallery }) => {
               id
               fluid(maxWidth: 500) {
                 ...GatsbyImageSharpFluid
+                presentationWidth
+                presentationHeight
               }
             }
           }
@@ -27,51 +29,68 @@ const GalleryImages = ({ gallery }) => {
       }
     }
   `);
-  const data = edges;
+  console.log(edges);
+  const [overlayImagePath, setOverlayImagePath] = useState("");
+  const [overlay, setOverlay] = useState(false);
+  const images = edges.filter(image =>
+    image.node.relativePath.includes(gallery)
+  );
+  const [imageArray] = useState(
+    images.map(i => {
+      return {
+        src: i.node.childImageSharp.fluid.src,
+        width: i.node.childImageSharp.fluid.presentationWidth,
+        height: i.node.childImageSharp.fluid.presentationHeight,
+      };
+    })
+  );
+
+  const [currentImage, setCurrentImage] = useState(0);
+  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+  const openLightbox = useCallback((event, { photo, index }) => {
+    setCurrentImage(index);
+    setViewerIsOpen(true);
+  }, []);
+
+  const closeLightbox = () => {
+    setCurrentImage(0);
+    setViewerIsOpen(false);
+  };
+
+  function columns(containerWidth) {
+    let columns = 1;
+    if (containerWidth >= 500) columns = 2;
+    if (containerWidth >= 900) columns = 3;
+    if (containerWidth >= 1500) columns = 4;
+    return columns;
+  }
 
   return (
-    <section className="page">
-      {data.map(
-        image =>
-          image.node.relativePath.includes(gallery) && (
-            <React.Fragment key={image.node.childImageSharp.fluid.src}>
-              <div className="item">
-                <Img
-                  className="img"
-                  fluid={image.node.childImageSharp.fluid}
-                  onClick={e => {
-                    setOverlay(true);
-                    setOverlayImagePath(image.node.childImageSharp.fluid);
-                  }}
-                />
-                <div className="item__overlay">
-                  <button
-                    onClick={e => {
-                      setOverlay(true);
-                      setOverlayImagePath(image.node.childImageSharp.fluid);
-                    }}
-                  >
-                    View →
-                  </button>
-                </div>
-              </div>
-              <div className={overlay ? "overlay open" : "overlay"}>
-                <div className="overlay-inner">
-                  <button
-                    className="close"
-                    onClick={e => {
-                      setOverlay(false);
-                    }}
-                  >
-                    × Close
-                  </button>
-                  {overlay && <Img fluid={overlayImagePath} />}
-                </div>
-              </div>
-            </React.Fragment>
-          )
-      )}
-    </section>
+    <div>
+      <React.Fragment>
+        <Gallery
+          photos={imageArray}
+          onClick={openLightbox}
+          direction="column"
+          columns={columns}
+        />
+        <ModalGateway>
+          {viewerIsOpen ? (
+            <Modal onClose={closeLightbox}>
+              <Carousel
+                currentIndex={currentImage}
+                views={imageArray.map(x => ({
+                  ...x,
+                  srcset: x.srcSet,
+                  caption: x.title,
+                }))}
+              />
+            </Modal>
+          ) : null}
+        </ModalGateway>
+      </React.Fragment>
+    </div>
   );
 };
 

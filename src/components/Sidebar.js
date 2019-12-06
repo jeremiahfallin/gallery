@@ -8,7 +8,7 @@ const Sidebar = () => {
     <div
       style={{
         display: "grid",
-        gridTemplateRows: "1fr 2fr 2fr",
+        gridTemplateRows: "1fr 3fr 5fr",
         gridTemplateColumns: "3fr 2fr",
         gridRowGap: "30px",
         width: "100%",
