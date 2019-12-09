@@ -12,6 +12,17 @@ const StyledMiddleColumn = styled.div`
   grid-row-gap: 30px;
   width: 100%;
   height: 100vh;
+
+  @media only screen and (max-width: 600px) {
+    grid-auto-flow: row;
+    height: 50vh;
+  }
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-column-gap: 100px;
+  }
 `;
 
 const StyledHeader = styled.h1`

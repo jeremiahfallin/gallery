@@ -1,20 +1,33 @@
 import React from "react";
 import { Link } from "gatsby";
+import styled from "styled-components";
 
 import Socials from "./Socials";
 
+const SidebarStyle = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 3fr 5fr;
+  grid-template-columns: 3fr 2fr;
+  grid-row-gap: 30px;
+  width: 100%;
+  height: 100vh;
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr 3fr;
+    height: 100%;
+    grid-template-rows: 1fr 3fr 3fr;
+  }
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-column-gap: 100px;
+  }
+`;
+
 const Sidebar = () => {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateRows: "1fr 3fr 5fr",
-        gridTemplateColumns: "3fr 2fr",
-        gridRowGap: "30px",
-        width: "100%",
-        height: "100vh",
-      }}
-    >
+    <SidebarStyle>
       <div
         style={{
           gridColumn: "-2/-1",
@@ -55,7 +68,7 @@ const Sidebar = () => {
       <div style={{ gridColumn: "-2/-1" }}>
         <Socials />
       </div>
-    </div>
+    </SidebarStyle>
   );
 };
 

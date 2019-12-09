@@ -13,7 +13,6 @@ const GalleryImage = ({ index, photo, margin, direction, top, left }) => {
     cont.left = left;
     cont.top = top;
   }
-  console.log(left);
 
   return (
     <div
