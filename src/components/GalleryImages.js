@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useStaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image";
+// import Img from "gatsby-image";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 
@@ -29,22 +29,19 @@ const GalleryImages = ({ gallery }) => {
       }
     }
   `);
-  console.log(edges);
-  const [overlayImagePath, setOverlayImagePath] = useState("");
-  const [overlay, setOverlay] = useState(false);
   const images = edges.filter(image =>
     image.node.relativePath.includes(gallery)
   );
   const [imageArray] = useState(
     images.map(i => {
       return {
+        ...i,
         src: i.node.childImageSharp.fluid.src,
         width: i.node.childImageSharp.fluid.presentationWidth,
         height: i.node.childImageSharp.fluid.presentationHeight,
       };
     })
   );
-
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
@@ -62,9 +59,22 @@ const GalleryImages = ({ gallery }) => {
     let columns = 1;
     if (containerWidth >= 500) columns = 2;
     if (containerWidth >= 900) columns = 3;
-    if (containerWidth >= 1500) columns = 4;
+    if (containerWidth >= 1200) columns = 4;
     return columns;
   }
+
+  // const imageRenderer = ({ index, left, top, key, onClick, photo }) => {
+  //   console.log(key);
+  //   return (
+  //     <Img
+  //       key={key}
+  //       left={left}
+  //       top={top}
+  //       onClick={onClick}
+  //       fluid={photo.node.childImageSharp.fluid}
+  //     />
+  //   );
+  // };
 
   return (
     <div>

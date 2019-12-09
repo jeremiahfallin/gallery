@@ -1,11 +1,46 @@
 import React, { useState } from "react";
 import { Link, graphql } from "gatsby";
 import Img from "gatsby-image";
+import styled from "styled-components";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
 import useInterval from "../components/hooks/useInterval";
+
+const StyledMiddleColumn = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 8fr 0fr;
+  grid-row-gap: 30px;
+  width: 100%;
+  height: 100vh;
+`;
+
+const StyledHeader = styled.header`
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+`;
+
+const ImageCrementer = styled.h1`
+  margin-bottom: 0;
+  font-size: 20px;
+  align-self: end;
+  justify-self: ${props => (props.left ? "left" : "right")};
+  color: #6699ff;
+  cursor: pointer;
+`;
+
+const StyledInner = styled.div`
+  grid-row: span 2;
+`;
+
+const StyledImageContainer = styled.div`
+  display: grid;
+  width: 100%;
+  height: 100%;
+`;
 
 const IndexPage = ({ data }) => {
   const [imageIndex, setImageIndex] = useState(5);
@@ -20,38 +55,16 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <div
-        style={{
-          display: "grid",
-          gridTemplateRows: "1fr 8fr 0fr",
-          gridRowGap: "30px",
-          width: "100%",
-          height: "100vh",
-        }}
-      >
-        <header
-          style={{
-            display: "grid",
-            height: "100%",
-            width: "100%",
-            gridTemplateColumns: "1fr 1fr 1fr",
-          }}
-        >
-          <h1
+      <StyledMiddleColumn>
+        <StyledHeader>
+          <ImageCrementer
+            left={true}
             onClick={e => {
               setImageIndex(i => (i - 1 >= 0 ? i - 1 : imageArray.length - 1));
             }}
-            style={{
-              marginBottom: 0,
-              fontSize: "20px",
-              alignSelf: "end",
-              justifySelf: "left",
-              color: "#6699ff",
-              cursor: "pointer",
-            }}
           >
             ← Previous
-          </h1>
+          </ImageCrementer>
           <h1
             style={{
               marginBottom: 0,
@@ -61,28 +74,15 @@ const IndexPage = ({ data }) => {
           >
             Home
           </h1>
-          <h1
+          <ImageCrementer
+            left={false}
             onClick={e => setImageIndex(i => (i + 1) % imageArray.length)}
-            style={{
-              marginBottom: 0,
-              fontSize: "20px",
-              alignSelf: "end",
-              justifySelf: "right",
-              color: "#6699ff",
-              cursor: "pointer",
-            }}
           >
             Next →
-          </h1>
-        </header>
-        <div style={{ gridRow: "span 2" }}>
-          <div
-            style={{
-              display: "grid",
-              width: "100%",
-              height: "100%",
-            }}
-          >
+          </ImageCrementer>
+        </StyledHeader>
+        <StyledInner>
+          <StyledImageContainer>
             <React.Fragment key={imageIndex}>
               {imageArray[imageIndex].node.relativeDirectory && (
                 <Link
@@ -108,9 +108,9 @@ const IndexPage = ({ data }) => {
                 </Link>
               )}
             </React.Fragment>
-          </div>
-        </div>
-      </div>
+          </StyledImageContainer>
+        </StyledInner>
+      </StyledMiddleColumn>
     </Layout>
   );
 };

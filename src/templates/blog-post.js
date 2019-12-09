@@ -1,9 +1,23 @@
 import React from "react";
 import { graphql } from "gatsby";
+import styled from "styled-components";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import GalleryImages from "../components/GalleryImages";
+
+const StyledMiddleColumn = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 8fr 0fr;
+  grid-row-gap: 30px;
+  width: 100%;
+  height: 100vh;
+`;
+
+const StyledHeader = styled.header`
+  align-self: end;
+  justify-self: center;
+`;
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -13,21 +27,8 @@ class BlogPostTemplate extends React.Component {
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title={post.frontmatter.title} />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateRows: "1fr 8fr 0fr",
-            gridRowGap: "30px",
-            width: "100%",
-            height: "100vh",
-          }}
-        >
-          <header
-            style={{
-              alignSelf: "end",
-              justifySelf: "center",
-            }}
-          >
+        <StyledMiddleColumn>
+          <StyledHeader>
             <h1
               style={{
                 marginBottom: 0,
@@ -42,13 +43,13 @@ class BlogPostTemplate extends React.Component {
             >
               {post.frontmatter.date}
             </p>
-          </header>
+          </StyledHeader>
           <div style={{ gridRow: "span 2" }}>
             <GalleryImages
               gallery={this.props.data.markdownRemark.frontmatter.title}
             />
           </div>
-        </div>
+        </StyledMiddleColumn>
       </Layout>
     );
   }

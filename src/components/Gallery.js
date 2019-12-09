@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image";
+import styled from "styled-components";
+import { default as Galleries } from "react-photo-gallery";
+import GalleryImage from "./GalleryImage";
 
 import "./Gallery.css";
+
+const StyledMiddleColumn = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 8fr 0fr;
+  grid-row-gap: 30px;
+  width: 100%;
+  height: 100vh;
+`;
+
+const StyledHeader = styled.h1`
+  align-self: end;
+  justify-self: center;
+  margin-bottom: 0;
+`;
+
+const GalleryStyles = styled.div`
+  display: grid;
+  grid-template-rows: span 2;
+  gap: 100px 20px;
+  width: 100%;
+  height: 100%;
+`;
 
 const Gallery = () => {
   const data = useStaticQuery(graphql`
@@ -35,6 +59,8 @@ const Gallery = () => {
               id
               fluid(maxWidth: 500) {
                 ...GatsbyImageSharpFluid
+                presentationWidth
+                presentationHeight
               }
             }
           }
@@ -43,59 +69,61 @@ const Gallery = () => {
     }
   `);
 
-  return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateRows: "1fr 8fr 0fr",
-        gridRowGap: "30px",
-        width: "100%",
-        height: "100vh",
-      }}
-    >
-      <h1
-        style={{
-          alignSelf: "end",
-          justifySelf: "center",
-          marginBottom: 0,
-        }}
+  const images = data.allFile.edges;
+
+  const [imageArray] = useState(
+    images.map(i => {
+      return {
+        ...i,
+        src: i.node.childImageSharp.fluid.src,
+        width: i.node.childImageSharp.fluid.presentationWidth,
+        height: i.node.childImageSharp.fluid.presentationHeight,
+      };
+    })
+  );
+
+  function columns(containerWidth) {
+    let columns = 1;
+    if (containerWidth >= 500) columns = 2;
+    if (containerWidth >= 900) columns = 3;
+    if (containerWidth >= 1200) columns = 4;
+    return columns;
+  }
+
+  const imageRenderer = ({ index, left, top, key, photo, direction }) => (
+    <React.Fragment key={index}>
+      <Link
+        to={`/${photo.node.relativeDirectory}/`}
+        style={{ boxShadow: `none` }}
+        key={index}
       >
-        Gallery
-      </h1>
+        <GalleryImage
+          index={index}
+          key={index}
+          photo={photo}
+          fluid={photo.node.childImageSharp.fluid}
+          left={left}
+          top={top}
+          direction={direction}
+        />
+      </Link>
+    </React.Fragment>
+  );
+
+  return (
+    <StyledMiddleColumn>
+      <StyledHeader>Gallery</StyledHeader>
       <div style={{ gridTemplateRows: "span 2" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 2fr))",
-            gridAutoRows: "minmax(100px, 200px)",
-            gridGap: "20px",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          {data.allFile.edges.map(image => {
-            return (
-              <React.Fragment key={image.node.relativeDirectory}>
-                <Link
-                  to={`/${image.node.relativeDirectory}/`}
-                  style={{ boxShadow: `none` }}
-                >
-                  <div className="item">
-                    <Img
-                      fluid={image.node.childImageSharp.fluid}
-                      style={{ height: "100%", width: "100%" }}
-                    />
-                    <div className="item__overlay">
-                      <button>{image.node.relativeDirectory}</button>
-                    </div>
-                  </div>
-                </Link>
-              </React.Fragment>
-            );
-          })}
-        </div>
+        <GalleryStyles>
+          <Galleries
+            photos={imageArray}
+            direction="column"
+            columns={columns}
+            renderImage={imageRenderer}
+          />
+        </GalleryStyles>
       </div>
-    </div>
+    </StyledMiddleColumn>
   );
 };
 
