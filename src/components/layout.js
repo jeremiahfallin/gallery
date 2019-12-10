@@ -23,7 +23,12 @@ const StyledLayout = styled.div`
 `;
 
 const Layout = ({ children }) => {
-  const isMobile = window.innerWidth < 600;
+  if (typeof window !== `undefined`) {
+    const isMobile = window.innerWidth < 600;
+  } else {
+    const isMobile = false;
+  }
+
   if (isMobile) {
     return (
       <>
