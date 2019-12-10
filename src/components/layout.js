@@ -23,10 +23,9 @@ const StyledLayout = styled.div`
 `;
 
 const Layout = ({ children }) => {
+  let isMobile = false;
   if (typeof window !== `undefined`) {
-    const isMobile = window.innerWidth < 600;
-  } else {
-    const isMobile = false;
+    isMobile = window.innerWidth < 600;
   }
 
   if (isMobile) {
