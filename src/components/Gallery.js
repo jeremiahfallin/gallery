@@ -20,8 +20,6 @@ const StyledMiddleColumn = styled.div`
 
   /* Small devices (portrait tablets and large phones, 600px and up) */
   @media only screen and (min-width: 600px) {
-    grid-template-columns: 1fr 3fr 1fr;
-    grid-column-gap: 100px;
   }
 `;
 
