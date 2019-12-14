@@ -20,7 +20,7 @@ const StyledLayout = styled.div`
   /* Small devices (portrait tablets and large phones, 900px and up) */
   @media only screen and (min-width: 900px) {
     grid-template-columns: 1fr 3fr 1fr;
-    grid-column-gap: 100px;
+    grid-column-gap: 30px;
   }
 `;
 

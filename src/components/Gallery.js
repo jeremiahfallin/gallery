@@ -8,27 +8,19 @@ import "./Gallery.css";
 
 const StyledMiddleColumn = styled.div`
   display: grid;
-  grid-template-rows: 1fr 8fr 0fr;
-  grid-row-gap: 30px;
   width: 100%;
   height: 100vh;
+  grid-row-gap: 30px;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 900px) {
     grid-auto-flow: row;
-    height: 50vh;
+    grid-template-rows: 1fr 8fr 0fr;
   }
 
   /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 900px) {
+    grid-template-rows: 1fr 8fr 0fr;
   }
-`;
-
-const GalleryStyles = styled.div`
-  display: grid;
-  grid-template-rows: span 2;
-  gap: 100px 20px;
-  width: 100%;
-  height: 100%;
 `;
 
 const Gallery = () => {
@@ -115,15 +107,13 @@ const Gallery = () => {
 
   return (
     <StyledMiddleColumn>
-      <div style={{ gridTemplateRows: "span 2", gridRowStart: 2 }}>
-        <GalleryStyles>
-          <Galleries
-            photos={imageArray}
-            direction="column"
-            columns={columns}
-            renderImage={imageRenderer}
-          />
-        </GalleryStyles>
+      <div style={{ gridRow: "span 2" }}>
+        <Galleries
+          photos={imageArray}
+          direction="column"
+          columns={columns}
+          renderImage={imageRenderer}
+        />
       </div>
     </StyledMiddleColumn>
   );

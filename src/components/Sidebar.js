@@ -23,11 +23,11 @@ const SidebarStyle = styled.div`
   /* Small devices (portrait tablets and large phones, 600px and up) */
   @media only screen and (min-width: 900px) {
     grid-template-columns: 1fr 3fr 1fr;
-    grid-column-gap: 100px;
+    grid-column-gap: 30px;
     grid-template-rows: 1fr 3fr 5fr;
     height: 100vh;
     grid-row-gap: 30px;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 2fr 2fr;
   }
 `;
 
@@ -59,13 +59,8 @@ const StyledList = styled.ul`
   list-style-type: none;
   margin-left: 0;
   padding: 0;
-  @media only screen and (max-width: 900px) {
-  }
-
-  @media only screen and (min-width: 900px) {
-    float: left;
-    padding-bottom: 0;
-  }
+  float: left;
+  padding-bottom: 0;
 `;
 
 const StyledSocials = styled.div`
@@ -74,13 +69,6 @@ const StyledSocials = styled.div`
 
   @media only screen and (min-width: 900px) {
     grid-column: -2 / -1;
-  }
-`;
-
-const StyledListItem = styled.li`
-  @media only screen and (max-width: 900px) {
-    margin-bottom: 0;
-    display: inline;
   }
 `;
 
@@ -100,28 +88,34 @@ const Sidebar = () => {
             <strong>Dan Scott</strong>
           </Link>
         </StyledName>
-        <MenuStyles>
+        <div
+          style={{
+            gridColumn: "-2/-1",
+            gridTemplateRows: "repeat(3, 1fr)",
+            alignSelf: "center",
+          }}
+        >
           <StyledList>
-            <StyledListItem>
+            <li>
               <Link to="/" activeStyle={{ textDecoration: "underline" }}>
                 Home
               </Link>
-            </StyledListItem>
-            <StyledListItem>
+            </li>
+            <li>
               <Link to="/gallery" activeStyle={{ textDecoration: "underline" }}>
                 Galleries
               </Link>
-            </StyledListItem>
-            <StyledListItem>
+            </li>
+            <li>
               <Link to="/about" activeStyle={{ textDecoration: "underline" }}>
                 About
               </Link>
-            </StyledListItem>
+            </li>
           </StyledList>
-        </MenuStyles>
-        <StyledSocials>
+        </div>
+        <div style={{ gridColumn: "-2/-1" }}>
           <Socials />
-        </StyledSocials>
+        </div>
       </SidebarStyle>
     );
   } else {
