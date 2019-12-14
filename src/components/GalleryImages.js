@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { useStaticQuery, graphql } from "gatsby";
-// import Img from "gatsby-image";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 
+import GalleryImage from "./GalleryImage";
 import "./GalleryImages.css";
 
 const GalleryImages = ({ gallery }) => {
@@ -18,7 +18,7 @@ const GalleryImages = ({ gallery }) => {
             relativePath
             childImageSharp {
               id
-              fluid(maxWidth: 500) {
+              fluid(maxWidth: 4000, quality: 90) {
                 ...GatsbyImageSharpFluid
                 presentationWidth
                 presentationHeight
@@ -63,18 +63,19 @@ const GalleryImages = ({ gallery }) => {
     return columns;
   }
 
-  // const imageRenderer = ({ index, left, top, key, onClick, photo }) => {
-  //   console.log(key);
-  //   return (
-  //     <Img
-  //       key={key}
-  //       left={left}
-  //       top={top}
-  //       onClick={onClick}
-  //       fluid={photo.node.childImageSharp.fluid}
-  //     />
-  //   );
-  // };
+  const imageRenderer = ({ index, left, top, key, photo, direction }) => (
+    <React.Fragment key={index}>
+      <GalleryImage
+        index={index}
+        key={index}
+        photo={photo}
+        fluid={photo.node.childImageSharp.fluid}
+        left={left}
+        top={top}
+        direction={direction}
+      />
+    </React.Fragment>
+  );
 
   return (
     <div>
@@ -84,6 +85,7 @@ const GalleryImages = ({ gallery }) => {
           onClick={openLightbox}
           direction="column"
           columns={columns}
+          renderImage={imageRenderer}
         />
         <ModalGateway>
           {viewerIsOpen ? (

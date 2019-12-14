@@ -10,43 +10,27 @@ const StyledLayout = styled.div`
   grid-column-gap: 50px;
   font-family: Montserrat, sans-serif;
 
-  /* Extra small devices (phones, 600px and down) */
-  @media only screen and (max-width: 600px) {
+  /* Extra small devices (phones, 900px and down) */
+  @media only screen and (max-width: 900px) {
     grid-auto-flow: row;
+    grid-auto-columns: 100%;
+    height: 100vh;
   }
 
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
+  /* Small devices (portrait tablets and large phones, 900px and up) */
+  @media only screen and (min-width: 900px) {
     grid-template-columns: 1fr 3fr 1fr;
     grid-column-gap: 100px;
   }
 `;
 
 const Layout = ({ children }) => {
-  let isMobile = false;
-  if (typeof window !== `undefined`) {
-    isMobile = window.innerWidth < 600;
-  }
-
-  if (isMobile) {
-    return (
-      <>
-        <StyledLayout>
-          <main>{children}</main>
-          <Sidebar />
-        </StyledLayout>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <StyledLayout>
-          <Sidebar />
-          <main>{children}</main>
-        </StyledLayout>
-      </>
-    );
-  }
+  return (
+    <StyledLayout>
+      <Sidebar />
+      <main>{children}</main>
+    </StyledLayout>
+  );
 };
 
 Layout.propTypes = {

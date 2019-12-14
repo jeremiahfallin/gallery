@@ -18,28 +18,30 @@ const GalleryImage = ({ index, photo, margin, direction, top, left }) => {
     <div
       style={{
         margin,
-        height: `100%`,
+        height: photo.height,
         width: photo.width,
         textAlign: "center",
         ...cont,
       }}
     >
       <Img alt={photo.title} fluid={photo.node.childImageSharp.fluid} />
-      <div
-        style={{
-          position: "absolute",
-          top: "8px",
-          left: "16px",
-          backgroundColor: "#000000c0",
-          paddingLeft: "20px",
-          paddingTop: "10px",
-          paddingRight: "10px",
-          fontSize: "20px",
-          color: "hsla(100, 100%, 100%, 0.9)",
-        }}
-      >
-        <strong>{photo.node.relativeDirectory}</strong>
-      </div>
+      {photo.node.relativeDirectory && (
+        <div
+          style={{
+            position: "absolute",
+            top: "8px",
+            left: "16px",
+            backgroundColor: "#000000c0",
+            paddingLeft: "20px",
+            paddingTop: "10px",
+            paddingRight: "10px",
+            fontSize: "20px",
+            color: "hsla(100, 100%, 100%, 0.9)",
+          }}
+        >
+          <strong>{photo.node.relativeDirectory}</strong>
+        </div>
+      )}
     </div>
   );
 };

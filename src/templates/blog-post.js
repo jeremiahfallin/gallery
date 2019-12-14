@@ -8,10 +8,18 @@ import GalleryImages from "../components/GalleryImages";
 
 const StyledMiddleColumn = styled.div`
   display: grid;
-  grid-template-rows: 1fr 8fr 0fr;
-  grid-row-gap: 30px;
   width: 100%;
   height: 100vh;
+  grid-row-gap: 30px;
+
+  @media only screen and (max-width: 900px) {
+    grid-template-rows: 0fr 8fr 0fr;
+  }
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 900px) {
+    grid-template-rows: 1fr 8fr 0fr;
+  }
 `;
 
 const StyledHeader = styled.header`

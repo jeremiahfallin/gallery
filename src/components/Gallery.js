@@ -23,12 +23,6 @@ const StyledMiddleColumn = styled.div`
   }
 `;
 
-const StyledHeader = styled.h1`
-  align-self: end;
-  justify-self: center;
-  margin-bottom: 0;
-`;
-
 const GalleryStyles = styled.div`
   display: grid;
   grid-template-rows: span 2;
@@ -66,7 +60,7 @@ const Gallery = () => {
             relativeDirectory
             childImageSharp {
               id
-              fluid(maxWidth: 500) {
+              fluid(maxWidth: 4000, quality: 90) {
                 ...GatsbyImageSharpFluid
                 presentationWidth
                 presentationHeight
@@ -121,8 +115,7 @@ const Gallery = () => {
 
   return (
     <StyledMiddleColumn>
-      <StyledHeader>Gallery</StyledHeader>
-      <div style={{ gridTemplateRows: "span 2" }}>
+      <div style={{ gridTemplateRows: "span 2", gridRowStart: 2 }}>
         <GalleryStyles>
           <Galleries
             photos={imageArray}
