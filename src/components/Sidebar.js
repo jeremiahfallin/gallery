@@ -32,7 +32,9 @@ const SidebarStyle = styled.div`
 `;
 
 const MenuStyles = styled.div`
+  display: grid;
   @media only screen and (max-width: 900px) {
+    grid-auto-flow: column;
   }
 
   @media only screen and (min-width: 900px) {
@@ -138,14 +140,14 @@ const Sidebar = () => {
             <Link
               to="/gallery"
               activeStyle={{ textDecoration: "underline" }}
-              style={{ justifySelf: "center" }}
+              style={{ justifySelf: "center", alignSelf: "center" }}
             >
               Galleries
             </Link>
             <Link
               to="/about"
               activeStyle={{ textDecoration: "underline" }}
-              style={{ justifySelf: "end" }}
+              style={{ justifySelf: "end", alignSelf: "end" }}
             >
               About
             </Link>
