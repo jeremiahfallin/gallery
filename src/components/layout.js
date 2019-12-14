@@ -9,6 +9,7 @@ const StyledLayout = styled.div`
   display: grid;
   grid-column-gap: 50px;
   font-family: Montserrat, sans-serif;
+  grid-row-gap: 20px;
 
   /* Extra small devices (phones, 900px and down) */
   @media only screen and (max-width: 900px) {
