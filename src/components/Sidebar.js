@@ -6,29 +6,27 @@ import Socials from "./Socials";
 
 import useWindowWidth from "../components/hooks/useWindowWidth";
 
-const SidebarStyle = styled.div`
+const SidebarWebStyle = styled.div`
   display: grid;
   width: 100%;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-column-gap: 30px;
+  grid-template-rows: 1fr 3fr 5fr;
+  height: 100vh;
+  grid-row-gap: 30px;
+  grid-template-columns: 2fr 2fr;
+`;
 
-  @media only screen and (max-width: 900px) {
-    grid-template-columns: 1fr 1fr 1fr;
-    height: 100%;
-    grid-auto-flow: column;
-    align-self: center;
-    justify-self: center;
-    padding-top: 1em;
-    padding-left: 1em;
-  }
-
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 900px) {
-    grid-template-columns: 1fr 3fr 1fr;
-    grid-column-gap: 30px;
-    grid-template-rows: 1fr 3fr 5fr;
-    height: 100vh;
-    grid-row-gap: 30px;
-    grid-template-columns: 2fr 2fr;
-  }
+const SidebarPhoneStyle = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 100%;
+  grid-auto-flow: column;
+  align-self: center;
+  justify-self: center;
+  padding-top: 1em;
+  padding-left: 1em;
 `;
 
 const MenuStyles = styled.div`
@@ -82,7 +80,7 @@ const Sidebar = () => {
 
   if (width > 900) {
     return (
-      <SidebarStyle>
+      <SidebarWebStyle>
         <StyledName>
           <Link to="/">
             <strong>Dan Scott</strong>
@@ -116,11 +114,11 @@ const Sidebar = () => {
         <div style={{ gridColumn: "-2/-1" }}>
           <Socials />
         </div>
-      </SidebarStyle>
+      </SidebarWebStyle>
     );
   } else {
     return (
-      <SidebarStyle>
+      <SidebarPhoneStyle>
         <StyledName>
           <Link to="/">
             <strong>Dan Scott</strong>
@@ -150,7 +148,7 @@ const Sidebar = () => {
         <StyledSocials>
           <Socials />
         </StyledSocials>
-      </SidebarStyle>
+      </SidebarPhoneStyle>
     );
   }
 };
