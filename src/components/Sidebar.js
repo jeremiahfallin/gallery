@@ -9,7 +9,6 @@ import useWindowWidth from "../components/hooks/useWindowWidth";
 const SidebarWebStyle = styled.div`
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 3fr 1fr;
   grid-column-gap: 30px;
   grid-template-rows: 1fr 3fr 5fr;
   height: 100vh;
