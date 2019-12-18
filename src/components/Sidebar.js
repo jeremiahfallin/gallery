@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
 
@@ -78,7 +78,41 @@ const Sidebar = () => {
   const width = useWindowWidth();
   console.log(width);
 
-  if (width > 900) {
+  if (width < 900) {
+    return (
+      <SidebarPhoneStyle>
+        <StyledName>
+          <Link to="/">
+            <strong>Dan Scott</strong>
+          </Link>
+        </StyledName>
+        <MenuStyles>
+          <StyledLinks>
+            <Link to="/" activeStyle={{ textDecoration: "underline" }}>
+              Home
+            </Link>
+            <Link
+              to="/gallery"
+              activeStyle={{ textDecoration: "underline" }}
+              style={{ justifySelf: "center", alignSelf: "center" }}
+            >
+              Galleries
+            </Link>
+            <Link
+              to="/about"
+              activeStyle={{ textDecoration: "underline" }}
+              style={{ justifySelf: "end", alignSelf: "end" }}
+            >
+              About
+            </Link>
+          </StyledLinks>
+        </MenuStyles>
+        <StyledSocials>
+          <Socials />
+        </StyledSocials>
+      </SidebarPhoneStyle>
+    );
+  } else {
     return (
       <SidebarWebStyle>
         <StyledName>
@@ -115,40 +149,6 @@ const Sidebar = () => {
           <Socials />
         </div>
       </SidebarWebStyle>
-    );
-  } else {
-    return (
-      <SidebarPhoneStyle>
-        <StyledName>
-          <Link to="/">
-            <strong>Dan Scott</strong>
-          </Link>
-        </StyledName>
-        <MenuStyles>
-          <StyledLinks>
-            <Link to="/" activeStyle={{ textDecoration: "underline" }}>
-              Home
-            </Link>
-            <Link
-              to="/gallery"
-              activeStyle={{ textDecoration: "underline" }}
-              style={{ justifySelf: "center", alignSelf: "center" }}
-            >
-              Galleries
-            </Link>
-            <Link
-              to="/about"
-              activeStyle={{ textDecoration: "underline" }}
-              style={{ justifySelf: "end", alignSelf: "end" }}
-            >
-              About
-            </Link>
-          </StyledLinks>
-        </MenuStyles>
-        <StyledSocials>
-          <Socials />
-        </StyledSocials>
-      </SidebarPhoneStyle>
     );
   }
 };
