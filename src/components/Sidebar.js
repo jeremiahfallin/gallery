@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
 
@@ -76,6 +76,7 @@ const StyledLinks = styled.div`
 
 const Sidebar = () => {
   const width = useWindowWidth();
+  console.log(width);
 
   if (width > 900) {
     return (
