@@ -46,6 +46,7 @@ const GalleryImages = ({ gallery }) => {
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
   const openLightbox = useCallback((event, { photo, index }) => {
+    console.log(event);
     setCurrentImage(index);
     setViewerIsOpen(true);
   }, []);
@@ -63,7 +64,15 @@ const GalleryImages = ({ gallery }) => {
     return columns;
   }
 
-  const imageRenderer = ({ index, left, top, key, photo, direction }) => (
+  const imageRenderer = ({
+    index,
+    left,
+    top,
+    key,
+    photo,
+    direction,
+    onClick,
+  }) => (
     <React.Fragment key={index}>
       <GalleryImage
         index={index}
@@ -73,35 +82,34 @@ const GalleryImages = ({ gallery }) => {
         left={left}
         top={top}
         direction={direction}
+        onClick={onClick}
       />
     </React.Fragment>
   );
 
   return (
     <div>
-      <React.Fragment>
-        <Gallery
-          photos={imageArray}
-          onClick={openLightbox}
-          direction="column"
-          columns={columns}
-          renderImage={imageRenderer}
-        />
-        <ModalGateway>
-          {viewerIsOpen ? (
-            <Modal onClose={closeLightbox}>
-              <Carousel
-                currentIndex={currentImage}
-                views={imageArray.map(x => ({
-                  ...x,
-                  srcset: x.srcSet,
-                  caption: x.title,
-                }))}
-              />
-            </Modal>
-          ) : null}
-        </ModalGateway>
-      </React.Fragment>
+      <Gallery
+        photos={imageArray}
+        direction="column"
+        columns={columns}
+        renderImage={imageRenderer}
+        onClick={openLightbox}
+      />
+      <ModalGateway>
+        {viewerIsOpen ? (
+          <Modal onClose={closeLightbox}>
+            <Carousel
+              currentIndex={currentImage}
+              views={imageArray.map(x => ({
+                ...x,
+                srcset: x.srcSet,
+                caption: x.title,
+              }))}
+            />
+          </Modal>
+        ) : null}
+      </ModalGateway>
     </div>
   );
 };

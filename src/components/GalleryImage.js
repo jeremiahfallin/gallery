@@ -7,7 +7,15 @@ const cont = {
   position: "relative",
 };
 
-const GalleryImage = ({ index, photo, margin, direction, top, left }) => {
+const GalleryImage = ({
+  index,
+  photo,
+  margin,
+  direction,
+  top,
+  left,
+  onClick,
+}) => {
   if (direction === "column") {
     cont.position = "absolute";
     cont.left = left;
@@ -24,7 +32,14 @@ const GalleryImage = ({ index, photo, margin, direction, top, left }) => {
         ...cont,
       }}
     >
-      <Img alt={photo.title} fluid={photo.node.childImageSharp.fluid} />
+      <Img
+        index={index}
+        alt={photo.title}
+        fluid={photo.node.childImageSharp.fluid}
+        onClick={e =>
+          onClick(e, { photo: photo.node.childImageSharp.fluid, index: index })
+        }
+      />
       {photo.node.relativeDirectory && (
         <div
           style={{
