@@ -46,7 +46,6 @@ const GalleryImages = ({ gallery }) => {
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
   const openLightbox = useCallback((event, { photo, index }) => {
-    console.log(event);
     setCurrentImage(index);
     setViewerIsOpen(true);
   }, []);
