@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Dan Scott Photography`,
     description: `Sick photos from around Oregon.`,
-    author: `@gatsbyjs`,
+    author: `@loltacit`,
   },
   plugins: [
     {
@@ -50,7 +50,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `dan-scott-photography`,
-        short_name: `starter`,
+        short_name: `gallery`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,

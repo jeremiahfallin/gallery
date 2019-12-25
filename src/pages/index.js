@@ -102,7 +102,6 @@ export const pageQuery = graphql`
       edges {
         node {
           name
-          relativePath
           relativeDirectory
           childImageSharp {
             id
